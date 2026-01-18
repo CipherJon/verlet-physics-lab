@@ -1,10 +1,10 @@
 # rope_swing.py
 # Implementation of a scene demonstrating a swinging rope.
 
-from ..core.vector2d import Vector2D
-from ..integration.verlet import VerletIntegrator
-from ..objects.rope import Rope
-from ..rendering.debug_renderer import DebugRenderer
+from core.vector2d import Vector2D
+from integration.verlet import VerletIntegrator
+from objects.rope import Rope
+from rendering.debug_renderer import DebugRenderer
 
 
 class RopeSwingScene:

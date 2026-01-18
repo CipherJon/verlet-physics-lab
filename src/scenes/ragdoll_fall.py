@@ -1,9 +1,10 @@
 # ragdoll_fall.py
 # Implementation of a scene where a ragdoll falls under gravity.
 
-from ..objects.ragdoll import Ragdoll
-from ..core.vector2d import Vector2D
-from ..rendering.pygame_renderer import PygameRenderer
+from core.vector2d import Vector2D
+from objects.ragdoll import Ragdoll
+from rendering.pygame_renderer import PygameRenderer
+
 
 class RagdollFallScene:
     """
@@ -34,14 +35,3 @@ class RagdollFallScene:
             self.renderer._render_frame()
 
         self.renderer.stop()
-```
-
-Now, let's create the remaining scene files. I'll provide the content for each file as requested.
-
-<file_path>
-verlet-physics-lab/simple-softbody-ragdoll/src/scenes/rope_swing.py
-</file_path>
-
-<edit_description>
-Create rope_swing.py
-</edit_description>

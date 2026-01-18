@@ -1,9 +1,9 @@
 # softbody.py
 # Implementation of a classic 2D softbody (blob) for the physics simulation.
 
-from ..core.particle import Particle
-from ..core.spring import Spring
-from ..core.vector2d import Vector2D
+from core.particle import Particle
+from core.spring import Spring
+from core.vector2d import Vector2D
 
 
 class SoftBody:

@@ -1,8 +1,9 @@
 # scene_base.py
 # Base class for defining simulation scenes.
 
-from ..core.vector2d import Vector2D
-from ..rendering.debug_renderer import DebugRenderer
+from core.vector2d import Vector2D
+from rendering.debug_renderer import DebugRenderer
+
 
 class SceneBase:
     """
@@ -69,6 +70,3 @@ class SceneBase:
 
     def __repr__(self):
         return f"SceneBase(width={self.width}, height={self.height}, objects={len(self.objects)})"
-```
-
-Now, let's create the remaining scene files.

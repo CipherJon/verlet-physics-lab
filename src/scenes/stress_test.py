@@ -1,11 +1,11 @@
 # stress_test.py
 # A scene for stress-testing the physics simulation with a large number of objects.
 
-from ..core.vector2d import Vector2D
-from ..objects.cloth import Cloth
-from ..objects.ragdoll import Ragdoll
-from ..objects.rope import Rope
-from ..objects.softbody import SoftBody
+from core.vector2d import Vector2D
+from objects.cloth import Cloth
+from objects.ragdoll import Ragdoll
+from objects.rope import Rope
+from objects.softbody import SoftBody
 
 
 class StressTestScene:

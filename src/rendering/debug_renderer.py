@@ -3,7 +3,7 @@
 
 import pygame
 
-from ..core.vector2d import Vector2D
+from core.vector2d import Vector2D
 
 
 class DebugRenderer:

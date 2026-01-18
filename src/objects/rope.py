@@ -1,9 +1,9 @@
 # rope.py
 # Implementation of a rope-like structure for the softbody ragdoll simulation.
 
-from ..core.particle import Particle
-from ..core.spring import Spring
-from ..core.vector2d import Vector2D
+from core.particle import Particle
+from core.spring import Spring
+from core.vector2d import Vector2D
 
 
 class Rope:

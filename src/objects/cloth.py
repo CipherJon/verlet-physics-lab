@@ -1,9 +1,9 @@
 # cloth.py
 # Implementation of a simple grid-based cloth for the physics simulation.
 
-from ..core.particle import Particle
-from ..core.spring import Spring
-from ..core.vector2d import Vector2D
+from core.particle import Particle
+from core.spring import Spring
+from core.vector2d import Vector2D
 
 
 class Cloth:

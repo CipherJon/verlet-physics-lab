@@ -2,11 +2,12 @@
 # Entry point for the simple-softbody-ragdoll simulation.
 # This script allows users to choose a scene and run the simulation.
 
-from scenes.rope_swing import RopeSwingScene
-from scenes.ragdoll_fall import RagdollFallScene
 from scenes.blob_slime import BlobSlime
 from scenes.cloth_flag import ClothFlagScene
+from scenes.ragdoll_fall import RagdollFallScene
+from scenes.rope_swing import RopeSwingScene
 from scenes.stress_test import StressTestScene
+
 
 def main():
     """
@@ -47,8 +48,6 @@ def main():
         else:
             print("Invalid choice. Please enter a number between 1 and 6.")
 
+
 if __name__ == "__main__":
     main()
-```
-
-Now, let's create the `requirements.txt` file to list the project's dependencies.{"display_description": "Create requirements.txt", "path": "verlet-physics-lab/simple-softbody-ragdoll/requirements.txt", "mode": "create"}

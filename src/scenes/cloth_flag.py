@@ -1,9 +1,10 @@
 # cloth_flag.py
 # Implementation of a cloth flag scene for the physics simulation.
 
-from ..objects.cloth import Cloth
-from ..core.vector2d import Vector2D
-from .scene_base import SceneBase
+from core.vector2d import Vector2D
+from objects.cloth import Cloth
+from scenes.scene_base import SceneBase
+
 
 class ClothFlagScene(SceneBase):
     """
@@ -57,6 +58,3 @@ class ClothFlagScene(SceneBase):
 
     def __repr__(self):
         return "ClothFlagScene()"
-```
-
-Now, let's create the remaining scene files. I'll proceed with the `stress_test.py` file next.

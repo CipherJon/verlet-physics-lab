@@ -1,3 +1,6 @@
+from core.vector2d import Vector2D
+
+
 class SemiImplicitEulerIntegrator:
     """
     Semi-Implicit Euler integration method for the physics simulation.

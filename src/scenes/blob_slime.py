@@ -1,8 +1,9 @@
 # blob_slime.py
 # Implementation of the BlobSlime scene for demonstrating a slime-like softbody.
 
-from ..objects.softbody import SoftBody
-from ..core.vector2d import Vector2D
+from core.vector2d import Vector2D
+from objects.softbody import SoftBody
+
 
 class BlobSlime:
     """
@@ -46,6 +47,3 @@ class BlobSlime:
 
     def __repr__(self):
         return "BlobSlime()"
-```
-
-Now, let's create the remaining scene files.
