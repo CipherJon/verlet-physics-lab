@@ -40,6 +40,8 @@ class TestSpring(unittest.TestCase):
             self.particle2.position.copy(),
         ]
         self.spring.apply()
+        self.particle1.update_position(0.016)
+        self.particle2.update_position(0.016)
         final_positions = [self.particle1.position, self.particle2.position]
         self.assertNotEqual(initial_positions, final_positions)
 

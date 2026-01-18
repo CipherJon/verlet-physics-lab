@@ -54,5 +54,19 @@ class Vector2D:
         """Calculate the dot product of two vectors."""
         return self.x * other.x + self.y * other.y
 
+    def copy(self):
+        """Return a copy of the vector."""
+        return Vector2D(self.x, self.y)
+
+    def distance_to(self, other):
+        """Calculate the distance between this vector and another vector."""
+        return ((self.x - other.x) ** 2 + (self.y - other.y) ** 2) ** 0.5
+
+    def __eq__(self, other):
+        """Check if two vectors are equal."""
+        if isinstance(other, Vector2D):
+            return self.x == other.x and self.y == other.y
+        return False
+
     def __repr__(self):
         return f"Vector2D({self.x}, {self.y})"

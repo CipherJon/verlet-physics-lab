@@ -87,30 +87,30 @@ class SoftBody:
                     self.springs.append(spring)
 
                 # Connect to the bottom-right neighbor (diagonal)
-                if row < rows - 1 and col < cols - 1:
-                    bottom_right_index = index + cols + 1
-                    rest_length = (self.spacing_x**2 + self.spacing_y**2) ** 0.5
-                    spring = Spring(
-                        self.particles[index],
-                        self.particles[bottom_right_index],
-                        rest_length,
-                        spring_stiffness,
-                        spring_damping,
-                    )
-                    self.springs.append(spring)
+                # if row < rows - 1 and col < cols - 1:
+                #     bottom_right_index = index + cols + 1
+                #     rest_length = (self.spacing_x**2 + self.spacing_y**2) ** 0.5
+                #     spring = Spring(
+                #         self.particles[index],
+                #         self.particles[bottom_right_index],
+                #         rest_length,
+                #         spring_stiffness,
+                #         spring_damping,
+                #     )
+                #     self.springs.append(spring)
 
                 # Connect to the bottom-left neighbor (diagonal)
-                if row < rows - 1 and col > 0:
-                    bottom_left_index = index + cols - 1
-                    rest_length = (self.spacing_x**2 + self.spacing_y**2) ** 0.5
-                    spring = Spring(
-                        self.particles[index],
-                        self.particles[bottom_left_index],
-                        rest_length,
-                        spring_stiffness,
-                        spring_damping,
-                    )
-                    self.springs.append(spring)
+                # if row < rows - 1 and col > 0:
+                #     bottom_left_index = index + cols - 1
+                #     rest_length = (self.spacing_x**2 + self.spacing_y**2) ** 0.5
+                #     spring = Spring(
+                #         self.particles[index],
+                #         self.particles[bottom_left_index],
+                #         rest_length,
+                #         spring_stiffness,
+                #         spring_damping,
+                #     )
+                #     self.springs.append(spring)
 
     def apply_force(self, force):
         """

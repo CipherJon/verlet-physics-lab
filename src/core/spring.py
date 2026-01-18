@@ -32,11 +32,13 @@ class Spring:
         Apply the spring force to the connected particles.
         """
         # Calculate the current distance between the particles
-        current_distance = (self.particle1.position - self.particle2.position).length()
+        current_distance = (
+            self.particle1.position - self.particle2.position
+        ).magnitude()
 
         # Calculate the displacement vector
         displacement = self.particle1.position - self.particle2.position
-        direction = displacement.normalized()
+        direction = displacement.normalize()
 
         # Calculate the force magnitude using Hooke's Law
         force_magnitude = self.stiffness * (current_distance - self.rest_length)

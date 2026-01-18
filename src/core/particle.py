@@ -1,3 +1,6 @@
+from .vector2d import Vector2D
+
+
 class Particle:
     """
     A basic mass point in the simulation.
@@ -22,6 +25,7 @@ class Particle:
         """
         self.position = position
         self.old_position = position.copy()
+        self.velocity = Vector2D(0, 0)
         self.acceleration = Vector2D(0, 0)
         self.mass = mass
         self.inv_mass = 1.0 / mass if mass != 0 else 0.0
@@ -39,7 +43,7 @@ class Particle:
 
     def update_position(self, delta_time):
         """
-        Update the particle's position using Euler integration.
+        Update the particle's position using Verlet integration.
 
         Args:
             delta_time (float): The time step for the update.
@@ -48,6 +52,7 @@ class Particle:
             velocity = self.position - self.old_position
             self.old_position = self.position.copy()
             self.position += velocity + self.acceleration * (delta_time**2)
+            self.velocity = velocity
             self.acceleration = Vector2D(0, 0)
 
     def __repr__(self):

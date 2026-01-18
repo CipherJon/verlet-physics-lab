@@ -3,6 +3,7 @@
 
 from ..core.particle import Particle
 from ..core.spring import Spring
+from ..core.vector2d import Vector2D
 
 
 class Rope:

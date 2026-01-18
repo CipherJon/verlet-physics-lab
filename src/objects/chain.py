@@ -4,6 +4,7 @@
 from ..core.constraint import Constraint
 from ..core.particle import Particle
 from ..core.spring import Spring
+from ..core.vector2d import Vector2D
 
 
 class Chain:
@@ -12,29 +13,48 @@ class Chain:
     A chain is a series of particles connected by springs, with additional angle constraints to maintain rigidity.
     """
 
-    def __init__(self, num_links, link_length, position, stiffness=1.0, damping=0.1):
+    def __init__(
+        self,
+        num_links=None,
+        particle_count=None,
+        link_length=1.0,
+        position=None,
+        stiffness=1.0,
+        damping=0.1,
+        particle_mass=1.0,
+        spring_stiffness=None,
+        spring_damping=None,
+    ):
         """
         Initialize the chain with a number of links, link length, starting position, stiffness, and damping.
 
         Args:
-            num_links (int): The number of links in the chain.
-            link_length (float): The length of each link.
-            position (Vector2D): The starting position of the chain.
+            num_links (int, optional): The number of links in the chain. Defaults to None.
+            particle_count (int, optional): The number of particles in the chain. Defaults to None.
+            link_length (float, optional): The length of each link. Defaults to 1.0.
+            position (Vector2D, optional): The starting position of the chain. Defaults to None.
             stiffness (float, optional): The stiffness of the springs. Defaults to 1.0.
             damping (float, optional): The damping factor of the springs. Defaults to 0.1.
+            particle_mass (float, optional): The mass of each particle. Defaults to 1.0.
         """
-        self.num_links = num_links
+        self.num_links = num_links if num_links is not None else particle_count
+        if self.num_links is None:
+            raise ValueError("Either num_links or particle_count must be provided.")
         self.link_length = link_length
-        self.stiffness = stiffness
-        self.damping = damping
+        self.stiffness = spring_stiffness if spring_stiffness is not None else stiffness
+        self.damping = spring_damping if spring_damping is not None else damping
+        self.particle_mass = particle_mass
         self.particles = []
         self.springs = []
         self.constraints = []
 
         # Create particles and springs for the chain
-        for i in range(num_links):
+        for i in range(self.num_links):
             # Create a particle for each link
-            particle = Particle(position + Vector2D(i * link_length, 0))
+            particle_position = Vector2D(i * link_length, 0)
+            if position is not None:
+                particle_position += position
+            particle = Particle(particle_position, mass=particle_mass)
             self.particles.append(particle)
 
             # Create a spring between consecutive particles
@@ -43,8 +63,8 @@ class Chain:
                     self.particles[i - 1],
                     self.particles[i],
                     link_length,
-                    stiffness,
-                    damping,
+                    self.stiffness,
+                    self.damping,
                 )
                 self.springs.append(spring)
 
