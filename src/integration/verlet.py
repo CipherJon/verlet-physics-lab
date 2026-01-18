@@ -1,6 +1,8 @@
 # verlet.py
 # Implementation of the Verlet integration method for the physics simulation.
 
+from core.vector2d import Vector2D
+
 
 class VerletIntegrator:
     """

@@ -13,7 +13,7 @@ class RopeSwingScene:
     The rope is anchored at one end and swings freely under gravity.
     """
 
-    def __init__(self, num_particles=20, segment_length=10.0):
+    def __init__(self, num_particles=3, segment_length=5.0):
         """
         Initialize the rope swing scene with a number of particles and segment length.
 
@@ -61,7 +61,7 @@ class RopeSwingScene:
                     particle.apply_force(Vector2D(0, 9.81))
 
             # Update the rope
-            self.integrator.integrate(0.016)  # Fixed time step
+            self.integrator.integrate(0.001)  # Smaller fixed time step
 
             # Render the rope
             self.rope.render(self.renderer)
