@@ -1,0 +1,58 @@
+class Vector2D:
+    """
+    A simple 2D vector class for handling vector operations in the physics simulation.
+    """
+
+    def __init__(self, x: float = 0.0, y: float = 0.0):
+        self.x = x
+        self.y = y
+
+    def __add__(self, other):
+        """Add two vectors or a vector and a scalar."""
+        if isinstance(other, Vector2D):
+            return Vector2D(self.x + other.x, self.y + other.y)
+        else:
+            return Vector2D(self.x + other, self.y + other)
+
+    def __sub__(self, other):
+        """Subtract two vectors or a vector and a scalar."""
+        if isinstance(other, Vector2D):
+            return Vector2D(self.x - other.x, self.y - other.y)
+        else:
+            return Vector2D(self.x - other, self.y - other)
+
+    def __mul__(self, other):
+        """Multiply a vector by a scalar."""
+        if isinstance(other, (int, float)):
+            return Vector2D(self.x * other, self.y * other)
+        else:
+            raise TypeError("Multiplication is only supported with scalars.")
+
+    def __truediv__(self, other):
+        """Divide a vector by a scalar."""
+        if isinstance(other, (int, float)):
+            return Vector2D(self.x / other, self.y / other)
+        else:
+            raise TypeError("Division is only supported with scalars.")
+
+    def __neg__(self):
+        """Negate the vector."""
+        return Vector2D(-self.x, -self.y)
+
+    def magnitude(self) -> float:
+        """Calculate the magnitude (length) of the vector."""
+        return (self.x**2 + self.y**2) ** 0.5
+
+    def normalize(self):
+        """Normalize the vector to have a magnitude of 1."""
+        mag = self.magnitude()
+        if mag == 0:
+            return Vector2D(0, 0)
+        return Vector2D(self.x / mag, self.y / mag)
+
+    def dot(self, other) -> float:
+        """Calculate the dot product of two vectors."""
+        return self.x * other.x + self.y * other.y
+
+    def __repr__(self):
+        return f"Vector2D({self.x}, {self.y})"

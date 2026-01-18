@@ -1,0 +1,25 @@
+# default_settings.toml
+# Default settings for the simple-softbody-ragdoll simulation.
+
+[simulation]
+gravity = [0.0, 9.81]  # Gravity vector (x, y)
+time_step = 0.016       # Time step for the simulation (1/60 for 60 FPS)
+substeps = 2            # Number of substeps for the integrator
+
+[rendering]
+width = 800             # Width of the rendering window
+height = 600            # Height of the rendering window
+background_color = [0, 0, 0]  # Background color (RGB)
+
+[colors]
+particle = [255, 255, 255]  # Color for particles (RGB)
+spring = [255, 255, 255]    # Color for springs (RGB)
+constraint = [255, 0, 0]    # Color for constraints (RGB)
+
+[physics]
+particle_mass = 1.0         # Default mass for particles
+spring_stiffness = 1.0      # Default stiffness for springs
+spring_damping = 0.1        # Default damping for springs
+```
+
+Now, let's create the `README.md` file.
