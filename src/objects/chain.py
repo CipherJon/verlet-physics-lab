@@ -106,6 +106,11 @@ class Chain:
         Args:
             delta_time (float): The time step for the update.
         """
+        # Apply external forces (e.g., gravity)
+        for particle in self.particles:
+            if not particle.is_fixed:
+                particle.apply_force(Vector2D(0, 9.81))  # Apply gravity
+
         # Apply spring forces
         for spring in self.springs:
             spring.apply()

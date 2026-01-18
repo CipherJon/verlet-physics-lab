@@ -85,11 +85,16 @@ class Ragdoll:
         Args:
             delta_time (float): The time step for the update.
         """
+        # Apply external forces (e.g., gravity)
         for particle in self.particles:
-            particle.update_position(delta_time)
+            if not particle.is_fixed:
+                particle.apply_force(Vector2D(0, 9.81))  # Apply gravity
 
         for spring in self.springs:
             spring.apply()
+
+        for particle in self.particles:
+            particle.update_position(delta_time)
 
     def render(self, renderer):
         """
