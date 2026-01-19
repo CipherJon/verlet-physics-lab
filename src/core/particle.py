@@ -51,7 +51,8 @@ class Particle:
         if not self.is_fixed:
             velocity = self.position - self.old_position
             self.old_position = self.position.copy()
-            self.position += velocity + self.acceleration * (delta_time**2)
+            delta_time_squared = delta_time**2
+            self.position += velocity + self.acceleration * delta_time_squared
             self.velocity = velocity
             self.acceleration = Vector2D(0, 0)
 

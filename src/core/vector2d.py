@@ -4,6 +4,11 @@ class Vector2D:
     """
 
     def __init__(self, x: float = 0.0, y: float = 0.0):
+        # Type checking to prevent nested Vector2D objects
+        if isinstance(x, Vector2D):
+            raise TypeError(f"x cannot be a Vector2D object. Got: {x}")
+        if isinstance(y, Vector2D):
+            raise TypeError(f"y cannot be a Vector2D object. Got: {y}")
         self.x = x
         self.y = y
 
