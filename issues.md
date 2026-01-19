@@ -16,13 +16,3 @@ Two tests are failing due to issues with the `Vector2D` class and its operations
 ### Steps to Reproduce
 1. Run the failing tests using `pytest`.
 2. Observe the errors related to `Vector2D` operations.
-
-### Solution
-1. Implement the `__pow__` method in the `Vector2D` class to support exponentiation operations.
-2. Review the initialization and comparison logic in the `Vector2D` class to ensure correctness.
-
-## Next Steps
-1. Fix the `ModuleNotFoundError` by updating import statements and ensuring the Python path is correct.
-2. Debug the `RopeSwingScene` to identify the cause of the simulation being killed.
-3. Address the `Vector2D` issues by implementing the `__pow__` method and reviewing initialization and comparison logic.
-4. Test the fixes to ensure that the simulation runs correctly.
