@@ -1,6 +1,12 @@
 # test_simulation.py
 # A test script to verify the simulation without rendering.
 
+import sys
+from pathlib import Path
+
+# Add the src directory to the Python path
+sys.path.append(str(Path(__file__).parent))
+
 from core.vector2d import Vector2D
 from integration.verlet import VerletIntegrator
 from objects.rope import Rope

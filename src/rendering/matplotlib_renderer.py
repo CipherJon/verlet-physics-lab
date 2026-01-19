@@ -4,6 +4,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 class MatplotlibRenderer:
     """
     A renderer for visualizing the physics simulation using Matplotlib.
@@ -18,7 +19,7 @@ class MatplotlibRenderer:
         self.lines = []
         self.points = []
 
-    def draw_line(self, start, end, color='b'):
+    def draw_line(self, start, end, color="b"):
         """
         Draw a line between two points.
 
@@ -27,10 +28,10 @@ class MatplotlibRenderer:
             end (Vector2D): The ending point of the line.
             color (str, optional): The color of the line. Defaults to 'b' (blue).
         """
-        line, = self.ax.plot([start.x, end.x], [start.y, end.y], color=color)
+        (line,) = self.ax.plot([start.x, end.x], [start.y, end.y], color=color)
         self.lines.append(line)
 
-    def draw_point(self, position, color='r', radius=2):
+    def draw_point(self, position, color="r", radius=2):
         """
         Draw a point at a given position.
 
@@ -39,7 +40,9 @@ class MatplotlibRenderer:
             color (str, optional): The color of the point. Defaults to 'r' (red).
             radius (int, optional): The radius of the point. Defaults to 2.
         """
-        point, = self.ax.plot(position.x, position.y, 'o', color=color, markersize=radius)
+        (point,) = self.ax.plot(
+            position.x, position.y, "o", color=color, markersize=radius
+        )
         self.points.append(point)
 
     def clear(self):
@@ -68,6 +71,3 @@ class MatplotlibRenderer:
 
     def __repr__(self):
         return "MatplotlibRenderer()"
-```
-
-Now, let's create the `debug_renderer.py` file.

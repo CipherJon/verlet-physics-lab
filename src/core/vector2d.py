@@ -14,12 +14,34 @@ class Vector2D:
         else:
             return Vector2D(self.x + other, self.y + other)
 
+    def __radd__(self, other):
+        """Add a scalar to a vector (reverse addition)."""
+        if isinstance(other, (int, float)):
+            return Vector2D(other + self.x, other + self.y)
+        else:
+            raise TypeError(
+                "Unsupported operand type(s) for +: '{}' and 'Vector2D'".format(
+                    type(other).__name__
+                )
+            )
+
     def __sub__(self, other):
         """Subtract two vectors or a vector and a scalar."""
         if isinstance(other, Vector2D):
             return Vector2D(self.x - other.x, self.y - other.y)
         else:
             return Vector2D(self.x - other, self.y - other)
+
+    def __rsub__(self, other):
+        """Subtract a vector from a scalar (reverse subtraction)."""
+        if isinstance(other, (int, float)):
+            return Vector2D(other - self.x, other - self.y)
+        else:
+            raise TypeError(
+                "Unsupported operand type(s) for -: '{}' and 'Vector2D'".format(
+                    type(other).__name__
+                )
+            )
 
     def __mul__(self, other):
         """Multiply a vector by a scalar."""
