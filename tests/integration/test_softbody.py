@@ -39,12 +39,13 @@ class TestSoftBody(unittest.TestCase):
         """
         Test that applying a force to the softbody works correctly.
         """
-        force = Vector2D(0, 9.81)  # Gravity
+        force = Vector2D(0.0, 9.81)  # Gravity
         self.softbody.apply_force(force)
 
         # Check that the force was applied to all particles
         for particle in self.softbody.particles:
-            self.assertEqual(particle.acceleration, force)
+            self.assertEqual(particle.acceleration.x, force.x)
+            self.assertEqual(particle.acceleration.y, force.y)
 
     def test_update(self):
         """
@@ -74,6 +75,35 @@ class TestSoftBody(unittest.TestCase):
 
         renderer = MockRenderer()
         self.softbody.render(renderer)
+
+    def test_invalid_softbody_initialization(self):
+        """
+        Test that invalid softbody initialization raises an error.
+        """
+        with self.assertRaises(ValueError):
+            SoftBody(
+                position=self.position,
+                width=0,
+                height=100,
+                rows=5,
+                cols=5,
+                particle_mass=1.0,
+                spring_stiffness=1.0,
+                spring_damping=0.1,
+            )
+
+    def test_softbody_performance(self):
+        import time
+
+        start_time = time.time()
+        for _ in range(100):
+            self.softbody.update(0.016)
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        print(
+            f"SoftBody update performance: {elapsed_time:.4f} seconds for 100 iterations"
+        )
+        self.assertLess(elapsed_time, 1.0)  # Should complete in under 1 second
 
 
 if __name__ == "__main__":

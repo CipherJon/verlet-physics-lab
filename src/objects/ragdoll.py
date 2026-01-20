@@ -3,7 +3,8 @@
 
 from core.particle import Particle
 from core.spring import Spring
-from core.vector2d import Vector2D
+
+from ..core.vector2d import Vector2D
 
 
 class Ragdoll:
@@ -21,7 +22,12 @@ class Ragdoll:
             limb_length (float, optional): The length of each limb. Defaults to 20.0.
             stiffness (float, optional): The stiffness of the springs connecting the limbs. Defaults to 0.5.
             damping (float, optional): The damping factor for the springs. Defaults to 0.1.
+
+        Raises:
+            ValueError: If limb_length is not positive.
         """
+        if limb_length <= 0:
+            raise ValueError("Limb length must be positive.")
         self.limb_length = limb_length
         self.stiffness = stiffness
         self.damping = damping

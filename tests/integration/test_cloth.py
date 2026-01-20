@@ -52,6 +52,26 @@ class TestCloth(unittest.TestCase):
         renderer = MockRenderer()
         self.cloth.render(renderer)  # Should not raise any errors
 
+    def test_invalid_cloth_initialization(self):
+        """
+        Test that invalid cloth initialization raises an error.
+        """
+        with self.assertRaises(ValueError):
+            Cloth(width=0, height=5)
+
+    def test_cloth_performance(self):
+        import time
+
+        start_time = time.time()
+        for _ in range(100):
+            self.cloth.update(0.016)
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        print(
+            f"Cloth update performance: {elapsed_time:.4f} seconds for 100 iterations"
+        )
+        self.assertLess(elapsed_time, 1.0)  # Should complete in under 1 second
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -50,6 +50,26 @@ class TestRagdoll(unittest.TestCase):
             if not particle.is_fixed:
                 self.assertNotEqual(particle.acceleration, initial_accelerations[i])
 
+    def test_invalid_ragdoll_initialization(self):
+        """
+        Test that invalid ragdoll initialization raises an error.
+        """
+        with self.assertRaises(ValueError):
+            Ragdoll(self.position, limb_length=0.0)
+
+    def test_ragdoll_performance(self):
+        import time
+
+        start_time = time.time()
+        for _ in range(100):
+            self.ragdoll.update(0.016)
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        print(
+            f"Ragdoll update performance: {elapsed_time:.4f} seconds for 100 iterations"
+        )
+        self.assertLess(elapsed_time, 1.0)  # Should complete in under 1 second
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -35,7 +35,12 @@ class SoftBody:
             particle_mass (float, optional): The mass of each particle. Defaults to 1.0.
             spring_stiffness (float, optional): The stiffness of the springs. Defaults to 1.0.
             spring_damping (float, optional): The damping factor of the springs. Defaults to 0.1.
+
+        Raises:
+            ValueError: If width or height is not positive.
         """
+        if width <= 0 or height <= 0:
+            raise ValueError("Width and height must be positive.")
         self.particles = []
         self.springs = []
         self.width = width

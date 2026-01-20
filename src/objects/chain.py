@@ -40,6 +40,8 @@ class Chain:
         self.num_links = num_links if num_links is not None else particle_count
         if self.num_links is None:
             raise ValueError("Either num_links or particle_count must be provided.")
+        if self.num_links <= 0:
+            raise ValueError("Number of links must be positive.")
         self.link_length = link_length
         self.stiffness = spring_stiffness if spring_stiffness is not None else stiffness
         self.damping = spring_damping if spring_damping is not None else damping

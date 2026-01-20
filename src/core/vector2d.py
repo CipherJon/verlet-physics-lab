@@ -9,15 +9,27 @@ class Vector2D:
             raise TypeError(f"x cannot be a Vector2D object. Got: {x}")
         if isinstance(y, Vector2D):
             raise TypeError(f"y cannot be a Vector2D object. Got: {y}")
+        if not isinstance(x, (int, float)) or not isinstance(y, (int, float)):
+            raise TypeError("x and y must be numeric values.")
         self.x = x
         self.y = y
 
     def __add__(self, other):
         """Add two vectors or a vector and a scalar."""
+        print(f"DEBUG: __add__ called with other type: {type(other)}, value: {other}")
         if isinstance(other, Vector2D):
+            print("DEBUG: other is a Vector2D")
             return Vector2D(self.x + other.x, self.y + other.y)
-        else:
+        elif isinstance(other, (int, float)):
+            print("DEBUG: other is a scalar")
             return Vector2D(self.x + other, self.y + other)
+        else:
+            print(f"DEBUG: other is neither Vector2D nor scalar, type: {type(other)}")
+            raise TypeError(
+                "Unsupported operand type(s) for +: 'Vector2D' and '{}'".format(
+                    type(other).__name__
+                )
+            )
 
     def __radd__(self, other):
         """Add a scalar to a vector (reverse addition)."""
@@ -74,7 +86,7 @@ class Vector2D:
         """Normalize the vector to have a magnitude of 1."""
         mag = self.magnitude()
         if mag == 0:
-            return Vector2D(0, 0)
+            raise ZeroDivisionError("Cannot normalize a zero vector.")
         return Vector2D(self.x / mag, self.y / mag)
 
     def dot(self, other) -> float:

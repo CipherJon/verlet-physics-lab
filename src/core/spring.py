@@ -20,7 +20,14 @@ class Spring:
             rest_length (float): The rest length of the spring.
             stiffness (float, optional): The stiffness of the spring. Defaults to 1.0.
             damping (float, optional): The damping factor of the spring. Defaults to 0.1.
+
+        Raises:
+            ValueError: If stiffness or damping is negative.
         """
+        if stiffness < 0:
+            raise ValueError("Stiffness cannot be negative.")
+        if damping < 0:
+            raise ValueError("Damping cannot be negative.")
         self.particle1 = particle1
         self.particle2 = particle2
         self.rest_length = rest_length
@@ -32,13 +39,11 @@ class Spring:
         Apply the spring force to the connected particles.
         """
         # Calculate the current distance between the particles
-        current_distance = (
-            self.particle1.position - self.particle2.position
-        ).magnitude()
+        displacement = self.particle1.position - self.particle2.position
+        current_distance = displacement.magnitude()
 
         # Calculate the displacement vector
-        displacement = self.particle1.position - self.particle2.position
-        direction = displacement.normalize()
+        direction = displacement.normalize() if current_distance > 0 else Vector2D(0, 0)
 
         # Calculate the force magnitude using Hooke's Law
         force_magnitude = self.stiffness * (current_distance - self.rest_length)
@@ -49,7 +54,7 @@ class Spring:
         self.particle2.apply_force(-force)
 
         # Apply damping (optional)
-        if self.damping > 0:
+        if self.damping > 0 and current_distance > 0:
             # Calculate relative velocity
             relative_velocity = self.particle1.velocity - self.particle2.velocity
             damping_force = (

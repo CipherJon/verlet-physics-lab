@@ -74,6 +74,36 @@ class TestParticle(unittest.TestCase):
             "Particle(position=Vector2D(0, 0), mass=1.0, is_fixed=False)",
         )
 
+    def test_negative_mass_particle(self):
+        """
+        Test that a particle with negative mass raises an error.
+        """
+        with self.assertRaises(ValueError):
+            Particle(self.position, mass=-1.0, is_fixed=False)
+
+    def test_invalid_force_application(self):
+        """
+        Test that applying an invalid force (non-Vector2D) raises an error.
+        """
+        with self.assertRaises(TypeError):
+            self.particle.apply_force("invalid_force")
+
+    def test_zero_mass_particle(self):
+        """
+        Test that a particle with zero mass is handled correctly.
+        """
+        zero_mass_particle = Particle(self.position, mass=0.0, is_fixed=False)
+        self.assertEqual(zero_mass_particle.mass, 0.0)
+        self.assertEqual(zero_mass_particle.inv_mass, float("inf"))
+
+    def test_extreme_force_application(self):
+        """
+        Test that applying an extreme force updates the acceleration correctly.
+        """
+        extreme_force = Vector2D(1e6, 1e6)
+        self.particle.apply_force(extreme_force)
+        self.assertEqual(self.particle.acceleration, extreme_force)
+
 
 if __name__ == "__main__":
     unittest.main()

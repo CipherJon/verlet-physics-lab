@@ -14,7 +14,9 @@ try:
 except ImportError:
     PYGAME_AVAILABLE = False
 
-from scenes.rope_swing import RopeSwingScene
+from core.vector2d import Vector2D
+from integration.verlet import VerletIntegrator
+from objects.rope import Rope
 
 
 def test_rope_swing():
@@ -25,20 +27,25 @@ def test_rope_swing():
         print("PyGame not available, skipping test")
         return
 
-    # Initialize PyGame
+    # Initialize PyGame (but avoid opening a window)
     pygame.init()
 
-    # Create the rope swing scene
-    scene = RopeSwingScene()
+    # Create the rope
+    start_position = Vector2D(400, 100)
+    rope = Rope(start_position, 3, 10.0)
 
-    # Run the simulation for 100 steps
-    # Skip the test if PyGame is not available in a headless environment
-    try:
-        for i in range(100):
-            scene.run()
-    except pygame.error:
-        print("PyGame not available in a headless environment, skipping test")
-        return
+    # Create the integrator
+    integrator = VerletIntegrator(rope.particles)
+
+    # Run the simulation for a fixed number of steps
+    for i in range(100):
+        # Apply gravity to the rope
+        for particle in rope.particles:
+            if not particle.is_fixed:
+                particle.apply_force(Vector2D(0, 9.81))
+
+        # Update the rope
+        integrator.integrate(0.001)
 
     # Quit PyGame
     pygame.quit()
@@ -46,5 +53,53 @@ def test_rope_swing():
     print("Rope swing simulation successful")
 
 
+def test_rope_swing_with_headless_rendering():
+    """
+    Test the rope swing simulation with headless rendering using matplotlib.
+    """
+    try:
+        import matplotlib
+
+        matplotlib.use("Agg")  # Use a non-interactive backend
+        import matplotlib.pyplot as plt
+
+        from rendering.matplotlib_renderer import MatplotlibRenderer
+
+        HEADLESS_RENDERING_AVAILABLE = True
+    except ImportError:
+        print("Matplotlib not available, skipping headless rendering test")
+        return
+
+    # Create the rope
+    start_position = Vector2D(400, 100)
+    rope = Rope(start_position, 3, 10.0)
+
+    # Create the integrator
+    integrator = VerletIntegrator(rope.particles)
+
+    # Create the renderer
+    renderer = MatplotlibRenderer()
+
+    # Run the simulation for a fixed number of steps
+    for i in range(100):
+        # Apply gravity to the rope
+        for particle in rope.particles:
+            if not particle.is_fixed:
+                particle.apply_force(Vector2D(0, 9.81))
+
+        # Update the rope
+        integrator.integrate(0.001)
+
+        # Render the rope
+        renderer.draw_line(rope.particles[0].position, rope.particles[1].position)
+        renderer.draw_line(rope.particles[1].position, rope.particles[2].position)
+
+    # Close the renderer
+    renderer.close()
+
+    print("Rope swing simulation with headless rendering successful")
+
+
 if __name__ == "__main__":
     test_rope_swing()
+    test_rope_swing_with_headless_rendering()

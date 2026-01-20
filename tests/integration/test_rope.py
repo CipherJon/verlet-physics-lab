@@ -56,6 +56,24 @@ class TestRope(unittest.TestCase):
         renderer = MockRenderer()
         self.rope.render(renderer)
 
+    def test_invalid_rope_initialization(self):
+        """
+        Test that invalid rope initialization raises an error.
+        """
+        with self.assertRaises(ValueError):
+            Rope(self.start_position, 0, self.segment_length)
+
+    def test_rope_performance(self):
+        import time
+
+        start_time = time.time()
+        for _ in range(100):
+            self.rope.update(0.016)
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        print(f"Rope update performance: {elapsed_time:.4f} seconds for 100 iterations")
+        self.assertLess(elapsed_time, 1.0)  # Should complete in under 1 second
+
 
 if __name__ == "__main__":
     unittest.main()

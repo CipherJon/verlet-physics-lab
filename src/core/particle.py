@@ -1,4 +1,4 @@
-from .vector2d import Vector2D
+from core.vector2d import Vector2D
 
 
 class Particle:
@@ -22,13 +22,18 @@ class Particle:
             position (Vector2D): The initial position of the particle.
             mass (float): The mass of the particle. Defaults to 1.0.
             is_fixed (bool): Whether the particle is fixed in space. Defaults to False.
+
+        Raises:
+            ValueError: If mass is negative.
         """
+        if mass < 0:
+            raise ValueError("Mass cannot be negative.")
         self.position = position
         self.old_position = position.copy()
         self.velocity = Vector2D(0, 0)
         self.acceleration = Vector2D(0, 0)
         self.mass = mass
-        self.inv_mass = 1.0 / mass if mass != 0 else 0.0
+        self.inv_mass = float("inf") if mass == 0 else 1.0 / mass
         self.is_fixed = is_fixed
 
     def apply_force(self, force):
@@ -37,7 +42,12 @@ class Particle:
 
         Args:
             force (Vector2D): The force to apply.
+
+        Raises:
+            TypeError: If force is not a Vector2D.
         """
+        if not isinstance(force, Vector2D):
+            raise TypeError("Force must be a Vector2D.")
         if not self.is_fixed:
             self.acceleration += force * self.inv_mass
 

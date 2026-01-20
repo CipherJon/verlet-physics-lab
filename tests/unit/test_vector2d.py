@@ -104,6 +104,39 @@ class TestVector2D(unittest.TestCase):
         vector = Vector2D(3.0, 4.0)
         self.assertEqual(repr(vector), "Vector2D(3.0, 4.0)")
 
+    def test_invalid_initialization(self):
+        """
+        Test that invalid initialization raises an error.
+        """
+        with self.assertRaises(TypeError):
+            Vector2D("invalid_x", "invalid_y")
+
+    def test_invalid_operations(self):
+        """
+        Test that invalid operations raise errors.
+        """
+        vector = Vector2D(3.0, 4.0)
+        with self.assertRaises(TypeError):
+            vector + "invalid_vector"
+        with self.assertRaises(TypeError):
+            vector * "invalid_scalar"
+
+    def test_zero_vector(self):
+        """
+        Test operations on a zero vector.
+        """
+        zero_vector = Vector2D(0.0, 0.0)
+        self.assertEqual(zero_vector.magnitude(), 0.0)
+        with self.assertRaises(ZeroDivisionError):
+            zero_vector.normalize()
+
+    def test_extreme_values(self):
+        """
+        Test operations with extreme values.
+        """
+        extreme_vector = Vector2D(1e10, 1e10)
+        self.assertAlmostEqual(extreme_vector.magnitude(), 1.41421356237e10, places=1)
+
 
 if __name__ == "__main__":
     unittest.main()

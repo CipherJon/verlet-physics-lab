@@ -24,6 +24,8 @@ class Rope:
             segment_length (float): The length of each segment (distance between particles).
             mass_per_particle (float, optional): The mass of each particle. Defaults to 1.0.
         """
+        if num_particles <= 0:
+            raise ValueError("Number of particles must be positive.")
         self.particles = []
         self.springs = []
 
