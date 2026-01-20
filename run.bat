@@ -1,4 +1,5 @@
 @echo off
 :: Quick launch script for the project (Windows)
-python src/main.py
+set PYTHONPATH=%PYTHONPATH%;%~dp0src
+python main.py
 pause
