@@ -1,5 +1,8 @@
 # rope_swing.py
-# Implementation of a scene demonstrating a swinging rope.
+# Implementation of a scene demonstrating a swinging rope using position-based dynamics.
+# Updated to use Verlet integration with multiple constraint iterations and strong gravity.
+
+import pygame
 
 from core.vector2d import Vector2D
 from integration.verlet import VerletIntegrator
@@ -9,20 +12,24 @@ from rendering.debug_renderer import DebugRenderer
 
 class RopeSwingScene:
     """
-    A scene demonstrating a swinging rope.
+    A scene demonstrating a swinging rope using position-based dynamics.
     The rope is anchored at one end and swings freely under gravity.
+    This implementation uses Verlet integration with multiple constraint iterations
+    for stable, realistic rope physics.
     """
 
-    def __init__(self, num_particles=3, segment_length=5.0):
+    def __init__(self, num_particles=20, segment_length=10.0, gravity_strength=800.0):
         """
         Initialize the rope swing scene with a number of particles and segment length.
 
         Args:
             num_particles (int, optional): The number of particles in the rope. Defaults to 20.
             segment_length (float, optional): The length of each segment in the rope. Defaults to 10.0.
+            gravity_strength (float, optional): The strength of gravity in pixel units. Defaults to 800.0.
         """
         self.num_particles = num_particles
         self.segment_length = segment_length
+        self.gravity_strength = gravity_strength
         self.rope = None
         self.renderer = None
         self.integrator = None
@@ -38,8 +45,15 @@ class RopeSwingScene:
         # Create the renderer
         self.renderer = DebugRenderer(width=800, height=600)
 
-        # Create the integrator
-        self.integrator = VerletIntegrator(self.rope.particles)
+        # Create the integrator with constraints and proper physics parameters
+        gravity = Vector2D(0, self.gravity_strength)
+        self.integrator = VerletIntegrator(
+            self.rope.particles,
+            constraints=self.rope.constraints,
+            constraint_iterations=10,
+            damping=0.99,
+            gravity=gravity,
+        )
 
     def run(self):
         """
@@ -48,20 +62,27 @@ class RopeSwingScene:
         self.setup()
 
         running = True
+        frame_count = 0
+        clock = pygame.time.Clock()
+
         while running:
-            # Handle events
+            # Handle events at the beginning of the loop
             running = self.renderer.handle_events()
+            if not running:
+                print("Exiting simulation loop...")
+                break
+
+            # Log frame count
+            frame_count += 1
+            if frame_count % 100 == 0:
+                print(f"Frame {frame_count}: Running simulation...")
 
             # Clear the screen
             self.renderer.clear()
 
-            # Apply gravity to the rope
-            for particle in self.rope.particles:
-                if not particle.is_fixed:
-                    particle.apply_force(Vector2D(0, 9.81))
-
-            # Update the rope
-            self.integrator.integrate(0.001)  # Smaller fixed time step
+            # Update physics using Verlet integration with PBD
+            # Gravity is now handled by the integrator, not applied here
+            self.integrator.integrate(0.016)  # Fixed time step of ~60fps
 
             # Render the rope
             self.rope.render(self.renderer)
@@ -69,5 +90,8 @@ class RopeSwingScene:
             # Update the display
             self.renderer.render()
 
+            # Cap the frame rate for consistent simulation
+            clock.tick(60)
+
     def __repr__(self):
-        return f"RopeSwingScene(num_particles={self.num_particles}, segment_length={self.segment_length})"
+        return f"RopeSwingScene(num_particles={self.num_particles}, segment_length={self.segment_length}, gravity_strength={self.gravity_strength})"

@@ -1,15 +1,22 @@
 # rope.py
 # Implementation of a rope-like structure for the softbody ragdoll simulation.
+# Updated to use position-based dynamics with Verlet integration.
 
-from core.particle import Particle
-from core.spring import Spring
-from core.vector2d import Vector2D
+from src.core.particle import Particle
+from src.core.spring import Spring
+from src.core.vector2d import Vector2D
 
 
 class Rope:
     """
     A class representing a rope-like structure made of particles and springs.
     The rope is a simple chain of particles connected by springs.
+    This implementation uses position-based dynamics for stable, realistic simulations.
+
+    Attributes:
+        particles (list[Particle]): List of particles in the rope.
+        springs (list[Spring]): List of springs connecting the particles.
+        constraints (list[Constraint]): List of constraints (currently just springs).
     """
 
     def __init__(
@@ -40,9 +47,12 @@ class Rope:
             spring = Spring(self.particles[i], self.particles[i + 1], segment_length)
             self.springs.append(spring)
 
+        # Constraints are the same as springs for now
+        self.constraints = self.springs
+
     def update(self, delta_time):
         """
-        Update the rope's particles and apply spring forces.
+        Update the rope by applying forces and constraints.
 
         Args:
             delta_time (float): The time step for the update.
@@ -56,7 +66,7 @@ class Rope:
         for spring in self.springs:
             spring.apply()
 
-        # Update particles (assuming Euler integration for simplicity)
+        # Update particle positions
         for particle in self.particles:
             particle.update_position(delta_time)
 

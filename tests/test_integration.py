@@ -1,6 +1,6 @@
-from core.vector2d import Vector2D
-from integration.verlet import VerletIntegrator
-from objects.rope import Rope
+from src.core.vector2d import Vector2D
+from src.integration.verlet import VerletIntegrator
+from src.objects.rope import Rope
 
 
 def test_integration():

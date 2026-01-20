@@ -1,4 +1,4 @@
-from core.vector2d import Vector2D
+from src.core.vector2d import Vector2D
 
 
 class SemiImplicitEulerIntegrator:

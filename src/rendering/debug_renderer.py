@@ -27,6 +27,7 @@ class DebugRenderer:
         self.background_color = background_color
         self.screen = pygame.display.set_mode((width, height))
         pygame.display.set_caption("Debug Renderer")
+        self.clock = pygame.time.Clock()
 
     def draw_line(self, start, end, color=(255, 255, 255)):
         """
@@ -71,11 +72,21 @@ class DebugRenderer:
         """
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                print("DEBUG: Received QUIT event")
                 return False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    print("DEBUG: Received ESC key event")
+                    return False
+        # Control the frame rate and allow the event queue to process
+        self.clock.tick(60)
         return True
 
     def __del__(self):
         """
         Clean up PyGame resources when the renderer is destroyed.
         """
-        pygame.quit()
+        try:
+            pygame.quit()
+        except:
+            pass
