@@ -16,15 +16,11 @@ class Vector2D:
 
     def __add__(self, other):
         """Add two vectors or a vector and a scalar."""
-        print(f"DEBUG: __add__ called with other type: {type(other)}, value: {other}")
         if isinstance(other, Vector2D):
-            print("DEBUG: other is a Vector2D")
             return Vector2D(self.x + other.x, self.y + other.y)
         elif isinstance(other, (int, float)):
-            print("DEBUG: other is a scalar")
             return Vector2D(self.x + other, self.y + other)
         else:
-            print(f"DEBUG: other is neither Vector2D nor scalar, type: {type(other)}")
             raise TypeError(
                 "Unsupported operand type(s) for +: 'Vector2D' and '{}'".format(
                     type(other).__name__

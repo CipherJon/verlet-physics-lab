@@ -3,7 +3,7 @@
 
 import unittest
 
-from src.core.vector2d import Vector2D
+from core.vector2d import Vector2D
 from src.objects.softbody import SoftBody
 
 

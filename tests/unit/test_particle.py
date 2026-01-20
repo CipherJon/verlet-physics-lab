@@ -3,8 +3,8 @@
 
 import unittest
 
+from core.vector2d import Vector2D
 from src.core.particle import Particle
-from src.core.vector2d import Vector2D
 
 
 class TestParticle(unittest.TestCase):

@@ -1,10 +1,10 @@
 # chain.py
 # Implementation of the Chain class for simulating a chain with angle constraints.
 
-from ..core.constraint import Constraint
-from ..core.particle import Particle
-from ..core.spring import Spring
-from ..core.vector2d import Vector2D
+from core.constraint import Constraint
+from core.particle import Particle
+from core.spring import Spring
+from core.vector2d import Vector2D
 
 
 class Chain:
